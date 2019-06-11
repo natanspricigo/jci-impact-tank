@@ -1,0 +1,13 @@
+extends layout
+
+block js
+    script(src="/javascripts/jogo-fonemas.js")
+    script.
+        var fonemas = new Fonemas("jogo");
+        fonemas.start();
+
+block content
+  div  
+    a(href="/") Voltar
+    h1= title
+  div#jogo
