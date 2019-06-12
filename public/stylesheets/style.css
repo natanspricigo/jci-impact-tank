@@ -20,9 +20,10 @@ a {
 }
 
 .bloco-letra{
-  width: 30px;
+  width: 55px;
   height: 1px;
   border: 0;
+  font-size: 26px;
   background-color: #92d5e8;
   text-align: center;
   position: relative;

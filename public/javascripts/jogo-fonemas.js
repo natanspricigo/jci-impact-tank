@@ -3,7 +3,8 @@ const alfabeto = () => {
 		return {
 			letra: alpha,
 			letraUp: alpha.toUpperCase(),
-			codes: [alpha.charCodeAt(0), alpha.toUpperCase().charCodeAt(0)]
+			code: alpha.charCodeAt(0),
+			codeUp: alpha.toUpperCase().charCodeAt(0)
 		}
 	});
 }
@@ -42,7 +43,7 @@ class Fonema{
 				this.block.style.height = (this.block.offsetHeight - 1)+"px"; // diminui a altura
 				this.top++;
 				
-				this.onReadBoard(this.block, this.block.offsetHeight);
+				this.onReadBoard(this.block.dataset.code, this.block, this.block.offsetHeight);
 
 				if (this.block.offsetHeight == 0) {
 					this.stop = true;
@@ -71,6 +72,7 @@ class Fonemas{
 		this.velocidade = 10;
 		this.alturaBloco = 200;
 		this.pare= false;
+		this.keysControl = {run:()=>{},stop:()=>{}};
 	}
 	sortearLetra(){
 		var alfab = alfabeto();
@@ -87,21 +89,30 @@ class Fonemas{
 	}
 
 	createBlock(letra, id){
-		return `<div class="bloco-letra" id="${id}"><span>${letra}</span></div>`;
+		return `<div class="bloco-letra" data-code="${letra.code}" id="${id}"><span>${letra.letraUp}</span></div>`;
 	}
+
+	getLetraPressionada(){return 0;}
 
 	insert(letra){
 		let id = this.createId();
-		this.location.innerHTML= this.location.innerHTML + this.createBlock(letra.letraUp, id);
+		this.location.innerHTML= this.location.innerHTML + this.createBlock(letra, id);
 		var fon = new Fonema(id, this.location,{velocidade:this.velocidade, alturaBloco: this.alturaBloco});
 
 		fon.onComplete = ()=>{
 			if (!this.pare) {
 				this.insert(this.sortearLetra());
 			}
+			this.keysControl.stop();
 		};
-		fon.onReadBoard = (bloco)=>{
-			console.log("toucheable..."+bloco)
+
+		fon.onReadBoard = (code, bloco)=>{
+			this.keysControl.run();
+			if (code == this.getLetraPressionada()) {
+				bloco.style.backgroundColor = "green";
+			}else if (this.getLetraPressionada()){
+				bloco.style.backgroundColor = "red";
+			}
 		};
 
 		fon.run();

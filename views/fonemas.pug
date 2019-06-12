@@ -2,8 +2,16 @@ extends layout
 
 block js
     script(src="/javascripts/jogo-fonemas.js")
+    script(src="/javascripts/keys.js")
     script.
         var fonemas = new Fonemas("jogo");
+        const keys = new KeysControl();
+
+        fonemas.getLetraPressionada = ()=>{
+            return keys.keyPressed;
+        }
+
+        fonemas.keysControl = keys;
         fonemas.start();
 
 block content
