@@ -4,6 +4,17 @@ html
     title= title
     include analitycs
     link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="manifest", href="/manifest.json")
   body
     block content
     block js
+    script.
+        if ("serviceWorker" in navigator) {
+            navigator.serviceWorker.register("/javascripts/sw.js").then(function(registration) {
+                console.info("Service Worker registration successful with scope: ", registration.scope);
+            }).catch(function(err) {
+                console.error("Service Worker registration failed: ", err);
+            });
+        }else{
+            console.log("Sem serviceWorker neste pc...");
+        }

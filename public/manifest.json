@@ -1,0 +1,18 @@
+{
+  "name": "JCI impact tank - jogo dos fonemas",
+  "short_name": "Fonemas",
+  "theme_color": "#005f97",
+  "background_color": "#005f97",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "lang": "pt-BR",
+  "orientation": "any",
+  "icons": [
+    {
+      "src": "/images/logo-site-retina.png",
+      "sizes": "147×65",
+      "type": "image/png"
+    }
+  ]
+}
