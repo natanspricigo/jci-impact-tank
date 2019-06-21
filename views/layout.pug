@@ -1,5 +1,5 @@
 doctype html
-html
+html(manifest="/offline.manifest")
   head
     title= title
     include analitycs
@@ -8,11 +8,3 @@ html
   body
     block content
     block js
-    script(src="/javascripts/upup.min.js")
-    script.        
-        UpUp.start({
-          'cache-version': 'v1',
-          'content-url': '/fonemas',
-          'assets': ['/javascripts/jogo-fonemas.js', '/javascripts/keys.js', '/stylesheets/style.css'],
-          'service-worker-url': '/javascripts/upup.sw.min.js'
-        });
