@@ -10,6 +10,7 @@ const staticCacheName = "fonemas";
 
 const FILES = [
 	"/",
+  "/fonemas",
 	"/javascripts/jogo-fonemas.js",
 	"/javascripts/keys.js",
 	"/stylesheets/style.css"
@@ -30,8 +31,6 @@ this.addEventListener('activate', event => {
     caches.keys().then(cacheNames => {
       return Promise.all(
         cacheNames
-          .filter(cacheName => (cacheName.startsWith('willian-justen-')))
-          .filter(cacheName => (cacheName !== staticCacheName))
           .map(cacheName => caches.delete(cacheName))
       );
     })
