@@ -9,7 +9,6 @@ const alfabeto = () => {
 	});
 }
 
-
 class Fonema{
 	constructor(id, base, opts){
 		this.block = document.getElementById(id);
