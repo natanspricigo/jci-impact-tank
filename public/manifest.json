@@ -11,7 +11,7 @@
   "icons": [
     {
       "src": "/images/logo-site-retina.png",
-      "sizes": "147×65",
+      "sizes": "48x48",
       "type": "image/png"
     }
   ]

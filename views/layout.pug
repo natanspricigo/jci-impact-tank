@@ -1,20 +1,18 @@
 doctype html
-html(manifest="/offline.manifest")
+html
   head
     title= title
     include analitycs
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel="manifest", href="/manifest.json")
+    link(rel="manifest", href="/manifest.json", crossorigin="anonymous")
   body
     block content
     block js
-    script.
-        if ("serviceWorker" in navigator) {
-            navigator.serviceWorker.register("/javascripts/sw.js").then(function(registration) {
-                console.info("Service Worker registration successful with scope: ", registration.scope);
-            }).catch(function(err) {
-                console.error("Service Worker registration failed: ", err);
-            });
-        }else{
-            console.log("Sem serviceWorker neste pc...");
-        }
+    script(src="/javascripts/upup.min.js")
+    script.        
+        UpUp.start({
+          'cache-version': 'v1',
+          'content-url': '/fonemas',
+          'assets': ['/javascripts/jogo-fonemas.js', '/javascripts/keys.js', '/stylesheets/style.css'],
+          'service-worker-url': '/javascripts/upup.sw.min.js'
+        });
