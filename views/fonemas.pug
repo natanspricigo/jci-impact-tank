@@ -1,8 +1,12 @@
 extends layout
 
 block js
+    - var version = "1";
+    script(src="/javascripts/soundjs.min.js")
+    script(src="/javascripts/sons.js")
     script(src="/javascripts/jogo-fonemas.js")
     script(src="/javascripts/keys.js")
+    
     script.
         var fonemas = new Fonemas("jogo");
         const keys = new KeysControl();
@@ -12,12 +16,16 @@ block js
         }
 
         fonemas.keysControl = keys;
-        fonemas.start();
+
+        document.getElementById("play").onclick = function(){
+            fonemas.start();
+        }
 
 block content
   div  
     a(href="/") Voltar
     h1 #{title}
-  div
-    include controles
+  
+  include controles
+
   div#jogo

@@ -22,7 +22,7 @@ class Fonema{
 	    max = Math.floor(max);
 	    return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
-
+	
 	run(){
 		this.top=0;
 		this.block.style.left = this.__random(0, this.location.offsetHeight-50)+"px";
@@ -38,12 +38,11 @@ class Fonema{
 				this.block.style.top = this.top+"px";
 			}
 			
+			this.onReadBoard(this.block.dataset.code, this.block, this.block.offsetHeight);
+
 			if ((alturaAteChao + this.block.offsetHeight - this.alturaBloco) < 0 && this.block.offsetHeight > 0){
 				this.block.style.height = (this.block.offsetHeight - 1)+"px"; // diminui a altura
 				this.top++;
-				
-				this.onReadBoard(this.block.dataset.code, this.block, this.block.offsetHeight);
-
 				if (this.block.offsetHeight == 0) {
 					this.stop = true;
 				}
@@ -72,7 +71,13 @@ class Fonemas{
 		this.alturaBloco = 200;
 		this.pare= false;
 		this.keysControl = {run:()=>{},stop:()=>{}};
+		this.loadSons();
 	}
+	
+	loadSons(){
+		this.controleSom = new ControleSom(alfabeto());
+	}
+
 	sortearLetra(){
 		var alfab = alfabeto();
 		var sorteado = Math.floor(Math.random() * (Math.floor(alfab.length) -  Math.ceil(0) + 1)) +  Math.ceil(0);
@@ -97,7 +102,8 @@ class Fonemas{
 		let id = this.createId();
 		this.location.innerHTML= this.location.innerHTML + this.createBlock(letra, id);
 		var fon = new Fonema(id, this.location,{velocidade:this.velocidade, alturaBloco: this.alturaBloco});
-
+		this.controleSom.play(letra);
+		
 		fon.onComplete = ()=>{
 			if (!this.pare) {
 				this.insert(this.sortearLetra());

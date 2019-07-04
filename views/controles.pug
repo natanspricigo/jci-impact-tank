@@ -1,7 +1,22 @@
 div#controle-base
-    .play
-        button play
     .velocidade
-        span lento - normal - rápido
+        h5 Velocidade
+        p 
+          button.brk-btn.vel.lento Lento
+          button.brk-btn.vel.normal Normal
+          button.brk-btn.vel.rapido Rápido
     .acertos
-        span acerto: 1 - erros: 2
+        h5 placar
+        p
+          span.icon(style="color:green") &#9900; 
+          span.acerto 1
+        p
+          span.icon(style="color:red") &#9900;
+          span.erro 1
+    .velocidade
+        h5 Configurações
+        div
+          input#mostraletra.cbx(type='checkbox', checked='checked')
+          label(for="mostraletra") Mostrar letra
+    #play
+        button.brk-btn Iniciar

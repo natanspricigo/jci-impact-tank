@@ -1,10 +1,12 @@
 doctype html
-html(manifest="/offline.manifest")
+// html(manifest="/offline.manifest")
+html
   head
     title= title
     include analitycs
     link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel="manifest", href="/manifest.json", crossorigin="anonymous")
+    link(rel='stylesheet', href='/stylesheets/button.css')
+    //link(rel="manifest", href="/manifest.json", crossorigin="anonymous")
   body
     block content
     block js
