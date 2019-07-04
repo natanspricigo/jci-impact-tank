@@ -4,7 +4,7 @@ class ControleSom{
 		var self = this;
 		letras.forEach(letra=>{
 			self.loadSound({
-				path: `sons/${letra.letra}.mp3`,
+				path: `sons/${letra.letraUp}.mp3`,
 				soundID: `som_${letra.code}`
 			})
 		});
