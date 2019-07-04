@@ -88,6 +88,9 @@ class Fonemas{
 	start(){
 		this.insert(this.sortearLetra());
 	}
+	stop(){
+		
+	}
 
 	createId(){
 		return Math.random().toString(32).replace("0.","")

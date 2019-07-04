@@ -22,7 +22,14 @@ block js
         fonemas.keysControl = keys;
 
         document.getElementById("play").onclick = function(e){
-            fonemas.start();
+            if(e.target.innerText == "PARAR"){
+                fonemas.stop();
+                e.target.innerText = "INICIAR";
+            }else{
+                fonemas.start();
+                e.target.innerText = "PARAR";
+            }
+            
         }
 
 block content
