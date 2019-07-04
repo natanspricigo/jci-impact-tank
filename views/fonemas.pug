@@ -8,6 +8,10 @@ block js
     script(src="/javascripts/keys.js")
     
     script.
+        const parseBoolean = (exp)=>{
+            return exp.indexOf("true")>=0;
+        }
+
         var fonemas = new Fonemas("jogo");
         const keys = new KeysControl();
 
@@ -17,7 +21,7 @@ block js
 
         fonemas.keysControl = keys;
 
-        document.getElementById("play").onclick = function(){
+        document.getElementById("play").onclick = function(e){
             fonemas.start();
         }
 

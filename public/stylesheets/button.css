@@ -52,3 +52,13 @@
 .brk-btn:hover::after {
   left: 80%;
 }
+
+.brk-btn-green{
+  border: 0.2em solid #216921;
+}
+.brk-btn-blue{
+  border: 0.2em solid #393990;
+}
+.brk-btn-red{
+  border: 0.2em solid #883939;
+}

@@ -52,6 +52,8 @@ a {
   vertical-align: middle;
   border: solid 1px #062244;
   background-color: #f3f3f3e8;
+  margin-bottom: 2px;
+  min-width: 100%;
 }
 
 #play {
@@ -82,4 +84,14 @@ a {
 
 .velocidade .vel {
   margin: 3px;
+}
+
+@media only screen and (max-width: 650px) {
+  #controle-base {
+    flex-direction: column;
+    padding: 3px;
+  }
+  #play, .velocidade, .acertos{
+    border-bottom: solid 1px #ccc;
+  }
 }

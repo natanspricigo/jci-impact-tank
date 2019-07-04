@@ -1,5 +1,6 @@
+
 const alfabeto = () => {
-	return "abcdefghijklmnopqrstuvwxyz".split("").map(alpha => {
+	return "abcdefgijklmnopqrstuvz".split("").map(alpha => {
 		return {
 			letra: alpha,
 			letraUp: alpha.toUpperCase(),
@@ -103,7 +104,7 @@ class Fonemas{
 		this.location.innerHTML= this.location.innerHTML + this.createBlock(letra, id);
 		var fon = new Fonema(id, this.location,{velocidade:this.velocidade, alturaBloco: this.alturaBloco});
 		this.controleSom.play(letra);
-		
+
 		fon.onComplete = ()=>{
 			if (!this.pare) {
 				this.insert(this.sortearLetra());
