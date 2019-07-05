@@ -1,4 +1,3 @@
-
 const alfabeto = () => {
 	return "abcdefgijklmnopqrstuvz".split("").map(alpha => {
 		return {
@@ -10,39 +9,39 @@ const alfabeto = () => {
 	});
 }
 
-class Fonema{
-	constructor(id, base, opts){
+class Fonema {
+	constructor(id, base, opts) {
 		this.block = document.getElementById(id);
 		this.location = base;
 		this.valocidade = opts.velocidade || 5;
 		this.alturaBloco = opts.alturaBloco || 200;
 		this.stop = false;
 	}
-	__random(min, max){
-	    min = Math.ceil(min || 0);
-	    max = Math.floor(max);
-	    return Math.floor(Math.random() * (max - min + 1)) + min;
+	__random(min, max) {
+		min = Math.ceil(min || 0);
+		max = Math.floor(max);
+		return Math.floor(Math.random() * (max - min + 1)) + min;
 	}
-	
-	run(){
-		this.top=0;
-		this.block.style.left = this.__random(0, this.location.offsetHeight-50)+"px";
-		this.interval = setInterval(()=>{
+
+	run() {
+		this.top = 0;
+		this.block.style.left = this.__random(0, this.location.offsetHeight - 50) + "px";
+		this.interval = setInterval(() => {
 			var alturaAteChao = this.location.offsetHeight - (this.block.offsetTop - this.location.offsetTop + this.block.offsetHeight);
 			if (this.block.offsetHeight >= this.alturaBloco) {
 				this.top++;
 			}
 
 			if (alturaAteChao > 0 && this.top <= 0) {
-				this.block.style.height = (this.block.offsetHeight+1)+"px"; // soma a altura
-			}else{
-				this.block.style.top = this.top+"px";
+				this.block.style.height = (this.block.offsetHeight + 1) + "px"; // soma a altura
+			} else {
+				this.block.style.top = this.top + "px";
 			}
-			
+
 			this.onReadBoard(this.block.dataset.code, this.block, this.block.offsetHeight);
 
-			if ((alturaAteChao + this.block.offsetHeight - this.alturaBloco) < 0 && this.block.offsetHeight > 0){
-				this.block.style.height = (this.block.offsetHeight - 1)+"px"; // diminui a altura
+			if ((alturaAteChao + this.block.offsetHeight - this.alturaBloco) < 0 && this.block.offsetHeight > 0) {
+				this.block.style.height = (this.block.offsetHeight - 1) + "px"; // diminui a altura
 				this.top++;
 				if (this.block.offsetHeight == 0) {
 					this.stop = true;
@@ -51,75 +50,89 @@ class Fonema{
 			if (this.stop) {
 				this.__stop();
 			}
-		},this.valocidade);
+		}, this.valocidade);
 	}
-	
-	onComplete(){};
-	onReadBoard(){};
 
-	__stop(){
+	onComplete() {};
+	onReadBoard() {};
+
+	__stop() {
 		clearInterval(this.interval); // destoi evento
 		this.block.parentNode.removeChild(this.block);
 		this.onComplete();
 	}
 }
 
-class Fonemas{
+class Fonemas {
 
-	constructor(locationId){
+	constructor(locationId) {
 		this.location = document.getElementById(locationId);
 		this.velocidade = 10;
 		this.alturaBloco = 200;
-		this.pare= false;
-		this.keysControl = {run:()=>{},stop:()=>{}};
+		this.pare = false;
+		this.mostrarLetra = false;
+		this.keysControl = {
+			run: () => {},
+			stop: () => {}
+		};
 		this.loadSons();
 	}
-	
-	loadSons(){
+
+	loadSons() {
 		this.controleSom = new ControleSom(alfabeto());
 	}
 
-	sortearLetra(){
+	sortearLetra() {
 		var alfab = alfabeto();
-		var sorteado = Math.floor(Math.random() * (Math.floor(alfab.length) -  Math.ceil(0) + 1)) +  Math.ceil(0);
+		var sorteado = Math.floor(Math.random() * (Math.floor(alfab.length) - Math.ceil(0) + 1)) + Math.ceil(0);
 		return alfab[sorteado];
 	}
 
-	start(){
+	start() {
 		this.insert(this.sortearLetra());
 	}
-	stop(){
-		
+	stop() {
+		this.keysControl.stop();
+		this.controleSom.stop();
+		var elems = document.querySelector(".bloco-letra");
+		if (elems) {
+			elems.remove();
+		}
 	}
 
-	createId(){
-		return Math.random().toString(32).replace("0.","")
+	createId() {
+		return Math.random().toString(32).replace("0.", "");
 	}
 
-	createBlock(letra, id){
-		return `<div class="bloco-letra" data-code="${letra.code}" id="${id}"><span>${letra.letraUp}</span></div>`;
+	createBlock(letra, id) {
+		return `<div class="bloco-letra" data-code="${letra.code}" id="${id}"><span>${this.mostrarLetra ? letra.letraUp : ''}</span></div>`;
 	}
 
-	getLetraPressionada(){return 0;}
+	getLetraPressionada() {
+		return 0;
+	}
 
-	insert(letra){
+	insert(letra) {
 		let id = this.createId();
-		this.location.innerHTML= this.location.innerHTML + this.createBlock(letra, id);
-		var fon = new Fonema(id, this.location,{velocidade:this.velocidade, alturaBloco: this.alturaBloco});
+		this.location.innerHTML = this.location.innerHTML + this.createBlock(letra, id);
+		var fon = new Fonema(id, this.location, {
+			velocidade: this.velocidade,
+			alturaBloco: this.alturaBloco
+		});
 		this.controleSom.play(letra);
 
-		fon.onComplete = ()=>{
+		fon.onComplete = () => {
 			if (!this.pare) {
 				this.insert(this.sortearLetra());
 			}
 			this.keysControl.stop();
 		};
 
-		fon.onReadBoard = (code, bloco)=>{
+		fon.onReadBoard = (code, bloco) => {
 			this.keysControl.run();
 			if (code == this.getLetraPressionada()) {
 				bloco.style.backgroundColor = "green";
-			}else if (this.getLetraPressionada()){
+			} else if (this.getLetraPressionada()) {
 				bloco.style.backgroundColor = "red";
 			}
 		};
@@ -127,5 +140,3 @@ class Fonemas{
 		fon.run();
 	}
 }
-
-

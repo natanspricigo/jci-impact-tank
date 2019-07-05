@@ -23,6 +23,7 @@ a {
   width: 55px;
   height: 1px;
   border: 0;
+  border-radius: 5px;
   font-size: 26px;
   background-color: #92d5e8;
   text-align: center;
