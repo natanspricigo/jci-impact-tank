@@ -73,6 +73,7 @@ a {
 .acertos .icon, .acertos .icon {
   font-size: 20px;
   margin: 0;
+  margin-right: 5px;
 }
 .acertos p{
   margin: 0;
@@ -85,6 +86,10 @@ a {
 
 .velocidade .vel {
   margin: 3px;
+}
+.velocidade .vel:disabled {
+  background-color: #bbb;
+  border-color: #999;
 }
 
 @media only screen and (max-width: 650px) {

@@ -111,6 +111,14 @@ class Fonemas {
 	getLetraPressionada() {
 		return 0;
 	}
+	acerto(){
+		var atual = Number(document.querySelector(".acertos .acerto").innerText);
+		document.querySelector(".acertos .acerto").innerText = atual+1;
+	}
+	erro(){
+		var atual = Number(document.querySelector(".acertos .erro").innerText);
+		document.querySelector(".acertos .erro").innerText = atual+1;
+	}
 
 	insert(letra) {
 		let id = this.createId();
@@ -130,11 +138,20 @@ class Fonemas {
 
 		fon.onReadBoard = (code, bloco) => {
 			this.keysControl.run();
-			if (code == this.getLetraPressionada()) {
-				bloco.style.backgroundColor = "green";
-			} else if (this.getLetraPressionada()) {
-				bloco.style.backgroundColor = "red";
+			var letra = this.getLetraPressionada();
+			if (this.__ultimaLetraLida && this.__ultimaLetraLida == letra) {
+				return;
 			}
+			if (code == letra) {
+				bloco.style.backgroundColor = "green";
+				this.controleSom.playSuccess();
+				this.acerto();
+			} else if (letra) {
+				bloco.style.backgroundColor = "red";
+				this.controleSom.playError();
+				this.erro();
+			}
+			this.__ultimaLetraLida = letra||0;
 		};
 
 		fon.run();

@@ -20,8 +20,9 @@ block js
         }
 
         fonemas.keysControl = keys;
+        
 
-        document.getElementById("play").onclick = function(e){
+        document.getElementById("play-game").onclick = function(e){
             if(e.target.innerText == "PARAR"){
                 fonemas.stop();
                 e.target.innerText = "INICIAR";
@@ -41,9 +42,14 @@ block js
         //velocidades
         document.querySelectorAll(".vel").forEach(e=>{
             e.onclick = function(evt){
+                document.querySelectorAll(".vel").forEach(e2=>{
+                    e2.disabled = false;
+                });
                 fonemas.velocidade = Number(evt.target.dataset.velocidade||10);
+                evt.target.disabled = true;
             }
-        })
+        });
+        document.querySelectorAll(".vel.normal")[0].click();
 
 block content
   div  

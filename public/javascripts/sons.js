@@ -6,8 +6,13 @@ class ControleSom{
 			self.loadSound({
 				path: `sons/${letra.letraUp}.mp3`,
 				soundID: `som_${letra.code}`
-			})
+			});
 		});
+		this.pathErr = "sons_app/err.mp3";
+		this.pathSuccess = "sons_app/success.mp3";
+
+		self.loadSound({path: this.pathErr, soundID: "__error"});
+		self.loadSound({path: this.pathSuccess, soundID: "__success"});
 	}
 
 	loadSound(som) {
@@ -19,5 +24,12 @@ class ControleSom{
 	}
 	stop(){
 		createjs.Sound.stop();
+	}
+
+	playError(){
+		createjs.Sound.play("__error");
+	}
+	playSuccess(){
+		createjs.Sound.play("__success");
 	}
 }

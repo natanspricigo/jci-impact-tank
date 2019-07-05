@@ -4,6 +4,7 @@ class KeysControl{
 	constructor(){
 		this.keyPressed = undefined;
 		this.onPress = ()=>{};
+		this.__ultimaLetra = undefined;
 	}
 
 	stop(){
